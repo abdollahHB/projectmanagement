@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 
-const API_BASE_URL = 'http://localhost:8082/api';
+const API_BASE_URL = 'skillful-luck-production.up.railway.app';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
