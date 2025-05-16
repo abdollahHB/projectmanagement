@@ -29,7 +29,7 @@ public class AuthController {
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
 
-    @GetMapping()
+    @GetMapping("/test")
 public String test() {
     return "abcd";
 }
