@@ -10,12 +10,11 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Check if user is already logged in
+  // Vérifie si un utilisateur est déjà connecté au démarrage
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
         const token = localStorage.getItem('token');
-        
         if (token) {
           const response = await authAPI.getCurrentUser();
           setCurrentUser(response.data);
@@ -27,16 +26,16 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
       }
     };
-
     checkAuthStatus();
   }, []);
 
+  // Fonction de connexion
   const login = async (email, password) => {
     try {
       setError(null);
       const response = await authAPI.login({ email, password });
       const { token, user } = response.data;
-      
+
       localStorage.setItem('token', token);
       setCurrentUser(user);
       return true;
@@ -46,6 +45,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Fonction d’inscription
   const register = async (userData) => {
     try {
       setError(null);
@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Déconnexion
   const logout = () => {
     localStorage.removeItem('token');
     setCurrentUser(null);
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     error,
     login,
     register,
-    logout
+    logout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
